@@ -1,1 +1,2 @@
-"# NightingaleLeetCode" 
+# NightingaleLeetCode
+

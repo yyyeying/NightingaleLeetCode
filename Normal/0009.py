@@ -8,6 +8,7 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
 
+
 class Solution:
     def isPalindrome(self, x: int) -> bool:
         x_list = list(str(x))
@@ -16,6 +17,7 @@ class Solution:
         # print(x_reverse)
         result = x_list == x_reverse
         return result
+
 
 if __name__ == '__main__':
     solution = Solution()

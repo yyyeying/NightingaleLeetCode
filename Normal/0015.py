@@ -55,62 +55,81 @@ class Solution:
                         result.append(new_result)
         return result
 
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
+    def threeSumSecond(self, nums: List[int]) -> List[List[int]]:
         result = []
         if len(nums) < 3:
             return result
         nums = sorted(nums)
         for i in range(len(nums)):
+            # print('i: {}'.format(i))
             for j in range(i + 1, len(nums)):
-                # print('pairs: {}'.format([nums[i], nums[j]]))
+                # print('i: {}, j: {}, pairs: {}'.format(i, j, [nums[i], nums[j]]))
                 new_nums = list(nums)
                 for n in [nums[i], nums[j]]:
                     new_nums.remove(n)
                 target = - nums[i] - nums[j]
-                if target < new_nums[0] or target > new_nums[-1]:
+                new_result = sorted([target, nums[i], nums[j]])
+                if target < new_nums[0] or target > new_nums[-1] or new_result in result:
                     continue
                 left = 0
                 right = len(new_nums) - 1
-                index = int((right - left) / 2)
+                index = left + int((right - left) / 2)
                 while index != left and index != right:
                     # print('left: {}, right: {}, index: {}, nums[index]: {}, target: {}, others: {}， nums: {}'
                     #       .format(left, right, index, new_nums[index], target, [nums[i], nums[j]], new_nums))
                     if new_nums[index] > target:
                         # print('larger')
                         right = index - 1
-                        index = int((right - left) / 2)
+                        index = left + int((right - left) / 2)
                     elif new_nums[index] < target:
                         # print('lower')
                         left = index + 1
                         index = left + int((right - left) / 2)
                     else:
                         new_result = sorted([new_nums[index], nums[i], nums[j]])
-                        # print('find new result: {}'.format(new_result))
+                        print('find new result: {}'.format(new_result))
                         if new_result not in result:
                             result.append(new_result)
-                        new_nums.remove(new_nums[index])
-                        left = 0
-                        right = len(new_nums) - 1
-                        index = int((right - left) / 2)
+                        index = left
+                        continue
                         # print('left: {}, right: {}, index: {}'.format(left, right, index))
                 if left == index:
                     # print('nums: {}, left: {}, right: {}, index: {}, nums[index]: {}, target: {}'
                     #       .format(new_nums, left, right, index, new_nums[index], target))
                     if new_nums[left] == target:
                         new_result = sorted([new_nums[index], nums[i], nums[j]])
-                        # print('find new result: {}'.format(new_result))
+                        print('find new result: {}'.format(new_result))
                         if new_result not in result:
                             result.append(new_result)
                     elif new_nums[right] == target:
                         new_result = sorted([new_nums[right], nums[i], nums[j]])
-                        # print('find new result: {}'.format(new_result))
+                        print('find new result: {}'.format(new_result))
                         if new_result not in result:
                             result.append(new_result)
+        return result
+
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        if len(nums) < 3:
+            return result
+        nums = sorted(nums)
+        for i in range(len(nums)):
+            # print('i: {}'.format(i))
+            for j in range(i + 1, len(nums)):
+                # print('i: {}, j: {}, pairs: {}'.format(i, j, [nums[i], nums[j]]))
+                new_nums = list(nums)
+                for n in [nums[i], nums[j]]:
+                    new_nums.remove(n)
+                target = - nums[i] - nums[j]
+                new_result = sorted([target, nums[i], nums[j]])
+                if target in new_nums and new_result not in result:
+                    result.append(new_result)
         return result
 
 
 if __name__ == '__main__':
     solution = Solution()
+    # result = solution.threeSum([-1, 0, 1, 2, -1, -4])
     result = solution.threeSum(
         [82597, -9243, 62390, 83030, -97960, -26521, -61011, 83390, -38677, 12333, 75987, 46091, 83794, 19355, -71037,
          -6242, -28801, 324, 1202, -90885, -2989, -95597, -34333, 35528, 5680, 89093, -90606, 50360, -29393, -27012,

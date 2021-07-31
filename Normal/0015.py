@@ -62,46 +62,48 @@ class Solution:
         nums = sorted(nums)
         for i in range(len(nums)):
             for j in range(i + 1, len(nums)):
-                print('pairs: {}'.format([nums[i], nums[j]]))
+                # print('pairs: {}'.format([nums[i], nums[j]]))
                 new_nums = list(nums)
                 for n in [nums[i], nums[j]]:
                     new_nums.remove(n)
                 target = - nums[i] - nums[j]
+                if target < new_nums[0] or target > new_nums[-1]:
+                    continue
                 left = 0
                 right = len(new_nums) - 1
                 index = int((right - left) / 2)
                 while index != left and index != right:
-                    print('nums: {}, left: {}, right: {}, index: {}, nums[index]: {}, target: {}, others: {}'
-                          .format(new_nums, left, right, index, new_nums[index], target, [nums[i], nums[j]]))
+                    # print('left: {}, right: {}, index: {}, nums[index]: {}, target: {}, others: {}， nums: {}'
+                    #       .format(left, right, index, new_nums[index], target, [nums[i], nums[j]], new_nums))
                     if new_nums[index] > target:
-                        print('larger')
+                        # print('larger')
                         right = index - 1
                         index = int((right - left) / 2)
                     elif new_nums[index] < target:
-                        print('lower')
+                        # print('lower')
                         left = index + 1
                         index = left + int((right - left) / 2)
                     else:
                         new_result = sorted([new_nums[index], nums[i], nums[j]])
-                        print('find new result: {}'.format(new_result))
+                        # print('find new result: {}'.format(new_result))
                         if new_result not in result:
                             result.append(new_result)
                         new_nums.remove(new_nums[index])
                         left = 0
                         right = len(new_nums) - 1
                         index = int((right - left) / 2)
-                        print('left: {}, right: {}, index: {}'.format(left, right, index))
+                        # print('left: {}, right: {}, index: {}'.format(left, right, index))
                 if left == index:
-                    print('nums: {}, left: {}, right: {}, index: {}, nums[index]: {}, target: {}'
-                          .format(new_nums, left, right, index, new_nums[index], target))
+                    # print('nums: {}, left: {}, right: {}, index: {}, nums[index]: {}, target: {}'
+                    #       .format(new_nums, left, right, index, new_nums[index], target))
                     if new_nums[left] == target:
                         new_result = sorted([new_nums[index], nums[i], nums[j]])
-                        print('find new result: {}'.format(new_result))
+                        # print('find new result: {}'.format(new_result))
                         if new_result not in result:
                             result.append(new_result)
                     elif new_nums[right] == target:
                         new_result = sorted([new_nums[right], nums[i], nums[j]])
-                        print('find new result: {}'.format(new_result))
+                        # print('find new result: {}'.format(new_result))
                         if new_result not in result:
                             result.append(new_result)
         return result

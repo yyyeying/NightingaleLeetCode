@@ -5,6 +5,8 @@ class ListNode:
 
 
 def construct_list(l: list) -> ListNode:
+    if len(l) == 0:
+        return None
     nodes = []
     for i in range(len(l)):
         node = ListNode(l[i])
@@ -16,6 +18,8 @@ def construct_list(l: list) -> ListNode:
 
 def traverse(head: ListNode) -> list:
     result = []
+    if head is None:
+        return result
     while head.next is not None:
         result.append(head.val)
         head = head.next

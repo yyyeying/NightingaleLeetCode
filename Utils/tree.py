@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 
 class TreeNode:
@@ -52,3 +52,25 @@ class Tree:
                         '''
                     node_to_insert = None
             count += layer_count
+
+    def level_order(self) -> List[List[int]]:
+        """
+        层序遍历
+        :return:
+        """
+        result = []
+        if self.root is None:
+            return result
+        queue: List[List[Union[TreeNode, int]]] = [[self.root, 0]]
+        while len(queue) > 0:
+            current = queue.pop()
+            if len(result) <= current[1]:
+                result.append([])
+            result[current[1]].append(current[0].val)
+            if current[0].left is not None:
+                queue.insert(0, [current[0].left, current[1] + 1])
+            if current[0].right is not None:
+                queue.insert(0, [current[0].right, current[1] + 1])
+        return result
+
+

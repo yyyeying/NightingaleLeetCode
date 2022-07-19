@@ -1,27 +1,36 @@
+from typing import List, Union, Optional
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
 
-def construct_list(l: list) -> ListNode:
-    if len(l) == 0:
-        return None
-    nodes = []
-    for i in range(len(l)):
-        node = ListNode(l[i])
-        if i > 0:
-            nodes[i - 1].next = node
-        nodes.append(node)
-    return nodes[0]
+class LinkedList:
+    def __init__(self, list_: Optional[List[Union[int]]] = None, head: Optional[ListNode] = None):
+        self.head = None
+        if list_ is not None:
+            self.construct(list_)
+        elif head is not None:
+            self.head = head
 
+    def construct(self, list_: List[Union[int]]):
+        # print("construct {}".format(list_))
+        prev = ListNode()
+        ptr = prev
+        for i in list_:
+            # print("new node {}".format(i))
+            ptr.next = ListNode(val=i)
+            ptr = ptr.next
+        # print(prev.next.val)
+        self.head = prev.next
 
-def traverse(head: ListNode) -> list:
-    result = []
-    if head is None:
+    def traverse(self) -> List[Union[int]]:
+        result = []
+        ptr = self.head
+        while ptr is not None:
+            # print("value: {}".format(ptr.val))
+            result.append(ptr.val)
+            ptr = ptr.next
         return result
-    while head.next is not None:
-        result.append(head.val)
-        head = head.next
-    result.append(head.val)
-    return result

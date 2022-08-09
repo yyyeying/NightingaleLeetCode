@@ -36,79 +36,73 @@ equation 方程由整数组成，其绝对值在 [0, 100] 范围内，不含�
 
 
 class Solution:
-    x_value = 0
-    const_value = 0
-    left = True
-    add = True
-    value = 0
-
     def solveEquation(self, equation: str) -> str:
+        x_value = 0
+        const_value = 0
+        left = True
+        add = True
+        value = 0
         for i in range(len(equation)):
             if equation[i] == "=":
-                print("= val = {}, const = {}, x = {}".format(self.const_value, self.const_value, self.x_value))
-                if self.add is True:
-                    self.const_value += self.value
+                if add is True:
+                    const_value += value
                 else:
-                    self.const_value -= self.value
-                self.left = False
-                self.add = False
-                self.value = 0
+                    const_value -= value
+                left = False
+                add = False
+                value = 0
             elif equation[i] == "+":
-                print("+ val = {}, const = {}, x = {}".format(self.const_value, self.const_value, self.x_value))
-                if self.add is True:
-                    self.const_value += self.value
+                if add is True:
+                    const_value += value
                 else:
-                    self.const_value -= self.value
-                if self.left is True:
-                    self.add = True
+                    const_value -= value
+                if left is True:
+                    add = True
                 else:
-                    self.add = False
-                self.value = 0
+                    add = False
+                value = 0
             elif equation[i] == "-":
-                print("- const = {}, const = {}, x = {}".format(self.value, self.const_value, self.x_value))
-                if self.add is True:
-                    self.const_value += self.value
+                if add is True:
+                    const_value += value
                 else:
-                    self.const_value -= self.value
-                if self.left is True:
-                    self.add = False
+                    const_value -= value
+                if left is True:
+                    add = False
                 else:
-                    self.add = True
-                self.value = 0
+                    add = True
+                value = 0
             elif equation[i] == "x":
-                print("x val = {}, const = {}, x = {}".format(self.value, self.const_value, self.x_value))
-                if self.add is True:
-                    if self.value > 0:
-                        self.x_value += self.value
+                if add is True:
+                    if value > 0:
+                        x_value += value
                     else:
                         if i - 1 >= 0 and equation[i - 1] == "0":
                             pass
                         else:
-                            self.x_value += 1
+                            x_value += 1
                 else:
-                    if self.value > 0:
-                        self.x_value -= self.value
+                    if value > 0:
+                        x_value -= value
                     else:
                         if i - 1 >= 0 and equation[i - 1] == "0":
                             pass
                         else:
-                            self.x_value -= 1
-                self.value = 0
+                            x_value -= 1
+                value = 0
             else:
-                self.value = self.value * 10 + int(equation[i])
-        if self.value > 0:
-            if self.add is True:
-                self.const_value += self.value
+                value = value * 10 + int(equation[i])
+        if value > 0:
+            if add is True:
+                const_value += value
             else:
-                self.const_value -= self.value
-        print("{}x = {}".format(self.x_value, -self.const_value))
-        if self.x_value == 0:
-            if self.const_value == 0:
+                const_value -= value
+        if x_value == 0:
+            if const_value == 0:
                 result = "Infinite solutions"
             else:
                 result = "No solution"
         else:
-            result = "x=" + str(int(-self.const_value / self.x_value))
+            result = "x=" + str(int(-const_value / x_value))
         return result
 
 
